@@ -1,0 +1,47 @@
+%*********************************************************  
+%    Desarrollado por: Guillermo Montoya                 *
+%                                                        *
+%    e-mail: logicasoftware@yahoo.com                    *
+%                                                        *
+%                                                        *
+%*********************************************************
+%  Programa para la resolucin del *  
+%  Problema de Transporte de PL    *
+%  Mtodo de la Esquina Noroeste   *
+%***********************************
+
+function calculo
+
+global a b c Calcular;
+
+
+sum_b=0;
+sum_c=0;
+
+    [h,g] = size(a);
+    for i = 1:h
+        for j = 1:g
+            x_a(i,j)=str2num( get( a(i,j) ,'String'));
+        end
+    end
+
+    for k = 1:g
+     x_b(1,k)=str2num( get( b(1,k) ,'String'));
+     sum_b=sum_b+x_b(1,k);
+    end
+
+    for t = 1:h
+     x_c(t,1)=str2num( get( c(t,1) ,'String'));
+     sum_c=sum_c+x_c(t,1);
+    end
+    
+if sum_b~=sum_c
+    
+    msj_01=sprintf('El Modelo NO esta equilibrado, Sum.Demandas= %.2f - Sum.Ofertas= %.2f',sum_b,sum_c);
+    waitfor(warndlg(msj_01,'ERROR AL INTRODUCIR LOS DATOS'));
+    
+else
+  
+   m_transporte(x_c,x_b',x_a);
+   
+end
